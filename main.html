@@ -1,16 +1,64 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Board</title>
+    <style>
+      body {
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(40, 20px); /* 40 columns */
+        grid-template-rows: repeat(20, 20px); /* 20 rows */
+        gap: 2px;
+      }
+      .square {
+        width: 20px;
+        height: 20px;
+        background: #1d1d1d;
+        transition: background-color 1s ease; /* smooth fade */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container"></div>
+    <script>
+      let container = document.getElementById("container");
+      const colors = ["#e74c3c", "#8e44ad", "#3498db", "#e67e22", "#2ecc71"];
 
-<html>
+      //create 800 square
+      for (let i = 1; i <= 800; i++) {
+        const square = document.createElement("div");
+        square.classList.add("square");
 
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
+        //on hover
+        square.addEventListener("mouseover", () => setColor(square));
+        square.addEventListener("mouseout", () => delayRemoveColor(square));
 
-<body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+        container.appendChild(square);
+      }
 
-</body>
+      function setColor(ele) {
+        const color = getRandomColor();
+        ele.style.backgroundColor = color;
+      }
 
+      function delayRemoveColor(ele) {
+        setTimeout(()=>{
+          ele.style.backgroundColor='#1d1d1d';  // fade back after 1s
+        },1000)
+      }
+
+      function getRandomColor() {
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+    </script>
+  </body>
 </html>
